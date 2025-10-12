@@ -46,6 +46,7 @@ jobs:
           docker tag ${{secrets.DOCKER_USERNAME}}/my-node-app:$IMAGE_TAG ${{secrets.DOCKER_USERNAME}}/my-node-app:latest
 
   deploy:
+    if: github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest
 
