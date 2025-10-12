@@ -1,18 +1,29 @@
 name: my-docker-app
 
 on:
-  push:
+#  push:
   workflow_dispatch:
+    inputs:
+      operating_system:
+        description: "OS to choose"
+        required: true
+        default: ubuntu-latest
+      version:
+        description: "version to choose"
+        type: choice
+        options: ["10", "12", "14"]
+        required: true
+        default: 10
 
 jobs:
   build:
-    strategy:
-      matrix:
-        version: [10, 12, 14]
-        os: [ubuntu-latest, windows-latest]
-        exclude:
-          - os: windows-latest
-    runs-on: ${{matrix.os}}
+    # strategy:
+    #   matrix:
+    #     version: [10, 12, 14]
+    #     os: [ubuntu-latest, windows-latest]
+    #     exclude:
+    #       - os: windows-latest
+    runs-on: ${{github.event.inputs.operating_system}}
     steps:
       - name: clone the repo
         uses: actions/checkout@v5
