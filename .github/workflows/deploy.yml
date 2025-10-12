@@ -8,7 +8,11 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: [10, 12, 14]
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{matrix.os}}
     steps:
       - name: clone the repo
         uses: actions/checkout@v5
@@ -47,7 +51,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Push image
+      - name: Pull image & run
         run: |
           docker pull ${{secrets.DOCKER_USERNAME}}/my-node-app:latest
           docker run -d -p 3000:3000 ${{secrets.DOCKER_USERNAME}}/my-node-app:latest
