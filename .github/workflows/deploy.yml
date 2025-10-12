@@ -1,1 +1,19 @@
+name: my-docker-app
+
+on: 
+  workflow_dispatch:
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: clone the repo 
+        uses: actions/checkout@v5
+
+      - name: check contents
+        run: ls -lrth
+
+      - name: build Image
+        run: docker build -t ${{secrets.DOCKER_USERNAME}}/my-node-app
+
 
