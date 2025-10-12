@@ -6,6 +6,8 @@ on:
     inputs:
       operating_system:
         description: "OS to choose"
+        type: choice
+        options: ["ubuntu-latest", "windows-latest"]
         required: true
         default: ubuntu-latest
       version:
